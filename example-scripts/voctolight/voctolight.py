@@ -35,6 +35,7 @@ def start_connection(tally_handler):
     sock.connect((Config.get('server', 'host'), 9999))
     sock.settimeout(None)
 
+    print('Connected.')
     messages = []
     sock.send(b'get_composite_mode\n')
     sock.send(b'get_video\n')

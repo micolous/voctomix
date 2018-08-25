@@ -3,7 +3,7 @@ DO_GPIO = True
 try:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BOARD)
-except ModuleNotFoundError:
+except ImportError:
     DO_GPIO = False
 
 __all__ = ['RpiGpio']

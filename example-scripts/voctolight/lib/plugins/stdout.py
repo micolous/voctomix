@@ -7,8 +7,6 @@ class Stdout:
 
     def tally_on(self):
         print('Tally light on')
-        if DO_GPIO:
-            GPIO.output(self.gpio_port, GPIO.LOW)
 
     def tally_off(self):
         print('Tally light off')
