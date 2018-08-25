@@ -12,7 +12,8 @@ except ImportError:
 
 class TomuSimpleLed:
     def __init__(self, config):
-        # There are no configuration options
+        self.on = int(config.get('tomu', 'on'))
+        self.off = int(config.get('tomu', 'off'))        
         if not DO_USB:
             raise ValueError('USB support not available. Install pyusb')
 
@@ -23,7 +24,7 @@ class TomuSimpleLed:
         self.device.set_configuration()
 
     def tally_on(self):
-        self.device.ctrl_transfer(0x40, 0, 0, 0, '')
+        self.device.ctrl_transfer(0x40, 0, self.on, 0, '')
 
     def tally_off(self):
-        self.device.ctrl_transfer(0x40, 0, 1, 0, '')
+        self.device.ctrl_transfer(0x40, 0, self.off, 0, '')
