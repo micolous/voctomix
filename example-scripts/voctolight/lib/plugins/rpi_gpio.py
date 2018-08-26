@@ -14,7 +14,7 @@ class RpiGpio:
             raise ValueError('RpiGpio will not work on this platform. Is RPi.GPIO installed?')
 
         # We don't need an explicit event loop pump
-        self.pump = lambda _: pass
+        self.pump = lambda: None
 
         all_gpios = [int(i) for i in config.get('rpi', 'gpios').split(',')]
         self.gpio_port = int(config.get('rpi', 'gpio_red'))

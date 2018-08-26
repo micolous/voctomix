@@ -4,7 +4,7 @@ __all__ = ['Stdout']
 class Stdout:
     def __init__(self, config):
         # We don't need an explicit event loop pump
-        self.pump = lambda _: pass
+        self.pump = lambda: None
 
     def tally_on(self):
         print('Tally light on')

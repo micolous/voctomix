@@ -12,7 +12,8 @@ except ImportError:
 
 class TomuSimpleLed:
     def __init__(self, config):
-        self.pump = lambda _: pass
+        # We don't need an explicit event loop pump
+        self.pump = lambda: None
 
         self.on = int(config.get('tomu', 'on'))
         self.off = int(config.get('tomu', 'off'))
