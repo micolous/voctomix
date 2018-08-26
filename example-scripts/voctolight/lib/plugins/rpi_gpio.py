@@ -10,23 +10,23 @@ __all__ = ['RpiGpio']
 
 class RpiGpio:
     def __init__(self, config):
-        all_gpios = [int(i) for i in config.get('light', 'gpios').split(',')]
-        self.gpio_port = int(config.get('light', 'gpio_red'))
+        if not DO_GPIO:
+            raise ValueError('RpiGpio will not work on this platform. Is RPi.GPIO installed?')
 
-        if DO_GPIO:
-            GPIO.setup(all_gpios, GPIO.OUT)
-            GPIO.output(all_gpios, GPIO.HIGH)
-        else:
-            print('RpiGpio will not work on this platform. Is RPi.GPIO installed?')
+        # We don't need an explicit event loop pump
+        self.pump = lambda _: pass
+
+        all_gpios = [int(i) for i in config.get('rpi', 'gpios').split(',')]
+        self.gpio_port = int(config.get('rpi', 'gpio_red'))
+
+        GPIO.setup(all_gpios, GPIO.OUT)
+        GPIO.output(all_gpios, GPIO.HIGH)
 
     def tally_on(self):
-        if DO_GPIO:
-            GPIO.output(self.gpio_port, GPIO.LOW)
+        GPIO.output(self.gpio_port, GPIO.LOW)
 
     def tally_off(self):
-        if DO_GPIO:
-            GPIO.output(self.gpio_port, GPIO.HIGH)
+        GPIO.output(self.gpio_port, GPIO.HIGH)
 
     def __del__(self):
-        if DO_GPIO:
-            GPIO.cleanup()
+        GPIO.cleanup()

@@ -24,7 +24,7 @@ class Tk:
         self.app.geometry('300x300')
 
     def pump(self):
-        pass
+        self.app.update()
 
     def tally_on(self):
         print('tally on')

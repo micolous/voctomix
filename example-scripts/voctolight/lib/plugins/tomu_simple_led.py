@@ -12,8 +12,10 @@ except ImportError:
 
 class TomuSimpleLed:
     def __init__(self, config):
+        self.pump = lambda _: pass
+
         self.on = int(config.get('tomu', 'on'))
-        self.off = int(config.get('tomu', 'off'))        
+        self.off = int(config.get('tomu', 'off'))
         if not DO_USB:
             raise ValueError('USB support not available. Install pyusb')
 
